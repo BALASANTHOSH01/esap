@@ -385,7 +385,7 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 ### Development Setup
 
 ```bash
-git clone https://github.com/yourusername/esap.git
+git clone https://github.com/BALASANTHOSH01/esap.git
 cd esap
 npm install
 npm run dev
@@ -424,11 +424,11 @@ A: Absolutely! ESAP is just a wrapper - you can mix and match as needed.
 
 ## License
 
-MIT © [Your Name]
+MIT © BALASANTHOSH01
 
 ## Support
 
 - 📚 [Documentation](https://esap-docs.com)
 - 💬 [Discord Community](https://discord.gg/esap)
-- 🐛 [Report Issues](https://github.com/yourusername/esap/issues)
+- 🐛 [Report Issues](https://github.com/BALASANTHOSH01/esap/issues)
 - 📧 [Email Support](mailto:support@esap.dev)
