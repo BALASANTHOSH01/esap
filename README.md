@@ -428,7 +428,5 @@ MIT © BALASANTHOSH01
 
 ## Support
 
-- 📚 [Documentation](https://esap-docs.com)
-- 💬 [Discord Community](https://discord.gg/esap)
+- 📚 [Documentation]([https://esap-docs.com](https://esap-docs.vercel.app/))
 - 🐛 [Report Issues](https://github.com/BALASANTHOSH01/esap/issues)
-- 📧 [Email Support](mailto:support@esap.dev)
