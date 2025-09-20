@@ -1,6 +1,6 @@
-MIT License
+# MIT License
 
-Copyright (c) 2025 BALA SANTHOSH 
+**Copyright (c) 2025 BALASANTHOSH01**
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -12,10 +12,196 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+**THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+SOFTWARE.**
+
+---
+
+## 📋 What This License Means
+
+### ✅ **You CAN:**
+- ✨ **Use** ESAP in any project (personal, commercial, open source)
+- 🔧 **Modify** the source code to fit your needs
+- 📦 **Distribute** your modified or unmodified copies
+- 💰 **Sell** software that includes ESAP
+- 🏢 **Use in commercial products** without paying royalties
+- 🔀 **Create derivative works** based on ESAP
+- 📱 **Bundle with proprietary software**
+
+### ❌ **You CANNOT:**
+- 🚫 **Hold us liable** for damages or issues
+- 📜 **Remove copyright notices** from the source code
+- 🛡️ **Use our name** to endorse your products without permission
+
+### 📝 **You MUST:**
+- ✍️ **Include the license** in copies of ESAP
+- 📄 **Keep copyright notices** intact
+- 🔗 **Attribute** ESAP in your documentation (recommended)
+
+---
+
+## 🤝 Third-Party Dependencies
+
+ESAP bundles and integrates with several other MIT-licensed libraries:
+
+### Core Dependencies
+- **GSAP** - GreenSock Animation Platform (Commercial license for commercial use)
+- **Three.js** - MIT License
+- **Matter.js** - MIT License
+
+### Important GSAP Licensing Note
+
+⚠️ **GSAP Licensing Requirements:**
+
+ESAP bundles GSAP for convenience, but **you must comply with GSAP's licensing terms:**
+
+- ✅ **Free for open source projects**
+- ✅ **Free for educational use**
+- ✅ **Free for personal projects**
+- 💼 **Commercial license required** for commercial projects
+
+**Get GSAP Commercial License:** https://greensock.com/licensing/
+
+```javascript
+// ESAP includes GSAP, but respects all GSAP licensing requirements
+import { useFadeIn } from 'esap'; // Uses GSAP internally
+```
+
+---
+
+## 📖 License Compatibility
+
+### ✅ **Compatible Licenses:**
+- **MIT** - Fully compatible
+- **Apache 2.0** - Compatible with attribution
+- **BSD** - Compatible
+- **ISC** - Compatible
+
+### ⚠️ **Special Considerations:**
+- **GPL** - Can use ESAP, but your project must be GPL
+- **Commercial** - GSAP license required for commercial use
+
+---
+
+## 🏢 Commercial Usage
+
+### Startups & Small Businesses
+```
+✅ Use ESAP freely
+⚠️ Purchase GSAP commercial license if revenue > $50k/year
+```
+
+### Enterprise
+```
+✅ Use ESAP freely  
+⚠️ GSAP commercial license required
+💡 Consider GSAP Business license for multiple projects
+```
+
+### SaaS Products
+```
+✅ Use ESAP freely
+⚠️ GSAP commercial license required
+📋 Include ESAP attribution in your docs
+```
+
+---
+
+## 📜 Attribution Examples
+
+### Recommended Attribution (Optional but Appreciated)
+
+**In Documentation:**
+```markdown
+This project uses ESAP (Easy GSAP) - https://github.com/BALASANTHOSH01/esap
+```
+
+**In Code Comments:**
+```javascript
+// Animation powered by ESAP - Easy GSAP for React
+// https://github.com/BALASANTHOSH01/esap
+```
+
+**In About/Credits Section:**
+```
+Animations: ESAP by BALASANTHOSH01
+```
+
+---
+
+## 🔒 Warranty Disclaimer
+
+**ESAP is provided "as is" without warranty of any kind.**
+
+This means:
+- 🚫 **No guarantee** of functionality
+- 🚫 **No liability** for damages
+- 🚫 **No warranty** of fitness for purpose
+- ✅ **Community support** available
+- ✅ **Open source** transparency
+- ✅ **Free to inspect** and modify
+
+---
+
+## 🌟 Why MIT License?
+
+We chose MIT license because:
+
+### 🎯 **Maximum Freedom**
+- Use in any type of project
+- No copyleft restrictions
+- Compatible with most other licenses
+
+### 🏢 **Business Friendly**
+- No licensing fees for ESAP itself
+- Can be integrated into proprietary products
+- Enterprise adoption friendly
+
+### 🤝 **Community Growth**
+- Encourages contributions and forks
+- Easy integration into other projects
+- Academic and educational use friendly
+
+### 📈 **Ecosystem Benefits**
+- More usage = more feedback = better library
+- Network effects benefit everyone
+- Lower barrier to adoption
+
+---
+
+## 🆘 License Questions?
+
+**Common Questions:**
+
+**Q: Can I use ESAP in my startup?**
+A: Yes! MIT license allows commercial use. Just ensure GSAP licensing compliance.
+
+**Q: Do I need to pay for ESAP?**
+A: No, ESAP is completely free under MIT license.
+
+**Q: Can I modify ESAP's source code?**
+A: Yes, you can modify and distribute your changes.
+
+**Q: What about GSAP licensing?**
+A: GSAP has separate licensing terms. Check greensock.com/licensing/ for details.
+
+**Q: Do I need to attribute ESAP?**
+A: Attribution is not required by MIT license, but it's appreciated!
+
+---
+
+## 📞 Contact
+
+For license questions or clarifications:
+- 📧 **Email:** [Create GitHub issue for public questions]
+- 💬 **GitHub:** https://github.com/BALASANTHOSH01/esap/issues
+- 🔗 **Discussions:** https://github.com/BALASANTHOSH01/esap/discussions
+
+---
+
+**Happy coding with ESAP!** 🚀✨

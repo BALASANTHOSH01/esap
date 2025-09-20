@@ -1,395 +1,555 @@
 # Contributing to ESAP 🚀
 
-Thank you for your interest in contributing to ESAP! We welcome contributions from developers of all skill levels. This guide will help you get started.
+Thank you for your interest in contributing to ESAP! This guide will help you get started with contributing to our React/Next.js animation library.
 
-## Table of Contents
+## 🌟 Ways to Contribute
 
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [Project Structure](#project-structure)
-- [Contributing Guidelines](#contributing-guidelines)
-- [Pull Request Process](#pull-request-process)
-- [Testing](#testing)
-- [Documentation](#documentation)
-- [Community](#community)
+- 🐛 **Bug Reports** - Help us identify and fix issues
+- 💡 **Feature Requests** - Suggest new animations and capabilities
+- 🔧 **Code Contributions** - Implement new features or fix bugs
+- 📚 **Documentation** - Improve guides, examples, and API docs
+- 🎨 **Examples & Demos** - Create showcase projects
+- 🧪 **Testing** - Write tests and improve coverage
+- 🎯 **Performance** - Optimize animations and reduce bundle size
+- 🌐 **Accessibility** - Enhance a11y features and compliance
 
-## Code of Conduct
-
-By participating in this project, you agree to abide by our Code of Conduct:
-
-- **Be respectful** and inclusive of all contributors
-- **Be constructive** in discussions and feedback
-- **Focus on the issue**, not the person
-- **Help others** learn and grow
-- **Follow our guidelines** for contributions
-
-## Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-
-- Node.js (version 16 or higher)
-- npm, yarn, or pnpm
+- **Node.js 20 LTS** (Latest LTS recommended)
+- **npm 9+**, yarn, or pnpm
 - Git
-- Basic knowledge of React, TypeScript, and GSAP
+- Basic knowledge of React, TypeScript, GSAP, Three.js
+
+> **Note:** We recommend using the latest Node.js LTS version for the best performance, security updates, and compatibility with modern tooling.
 
 ### Development Setup
 
-1. **Fork the repository**
-   ```bash
-   # Click the "Fork" button on GitHub
-   ```
+```bash
+# 1. Fork the repository on GitHub
+# 2. Clone your fork
+git clone https://github.com/BALASANTHOSH01/esap.git
+cd esap
 
-2. **Clone your fork**
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/esap.git
-   cd esap
-   ```
+# 3. Install dependencies
+npm install
 
-3. **Add upstream remote**
-   ```bash
-   git remote add upstream https://github.com/BALASANTHOSH01/esap.git
-   ```
+# 4. Start development server
+npm run dev
 
-4. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# 5. Run tests
+npm test
 
-5. **Start development**
-   ```bash
-   npm run dev
-   ```
+# 6. Build library
+npm run build
+```
 
-## Project Structure
+### Project Structure
 
 ```
 esap/
-├── src/                    # Source code
-│   ├── hooks/             # React hooks
-│   │   ├── useFadeIn.ts
-│   │   ├── useSlideIn.ts
-│   │   └── ...
-│   ├── components/        # React components
+├── src/
+│   ├── hooks/           # Core animation hooks
+│   │   ├── core/        # Basic animations (fade, slide, etc.)
+│   │   ├── 3d/          # Three.js integration
+│   │   ├── physics/     # Matter.js physics
+│   │   ├── particles/   # Particle systems
+│   │   ├── audio/       # Audio-reactive features
+│   │   ├── ai/          # AI-powered animations
+│   │   ├── text/        # Text animations
+│   │   ├── gestures/    # Touch & gesture support
+│   │   └── utils/       # Utility hooks
+│   ├── components/      # React components
 │   │   ├── AnimatedPresence.tsx
 │   │   ├── StaggerContainer.tsx
-│   │   └── ...
-│   ├── utils/             # Utility functions
-│   ├── types/             # TypeScript type definitions
-│   ├── presets/           # Animation presets
-│   └── index.ts           # Main export file
-├── examples/              # Usage examples
-├── docs/                  # Documentation
-├── tests/                 # Test files
-├── dist/                  # Built files (generated)
-└── README.md
+│   │   ├── Scene3D.tsx
+│   │   └── ParticleSystem.tsx
+│   ├── presets/         # Animation presets
+│   ├── types/           # TypeScript definitions
+│   ├── utils/           # Helper functions
+│   └── index.ts         # Main exports
+├── examples/            # Example projects
+├── docs/               # Documentation
+├── tests/              # Test files
+└── tools/              # Build and development tools
 ```
 
-## Contributing Guidelines
+## 🛠️ Development Guidelines
 
-### Types of Contributions
+### Code Style
 
-We welcome several types of contributions:
+We use ESLint, Prettier, and TypeScript for consistent code quality.
 
-1. **🐛 Bug Fixes**
-   - Fix existing issues
-   - Improve error handling
-   - Performance optimizations
+```bash
+# Check code style
+npm run lint
 
-2. **✨ New Features**
-   - New animation hooks
-   - Additional components
-   - Framework integrations
+# Fix auto-fixable issues
+npm run lint:fix
 
-3. **📚 Documentation**
-   - Improve existing docs
-   - Add examples
-   - Fix typos
+# Format code
+npm run format
+```
 
-4. **🧪 Testing**
-   - Add unit tests
-   - Improve test coverage
-   - E2E tests
+### Naming Conventions
 
-5. **🎨 Examples**
-   - Create new examples
-   - Improve existing demos
+- **Hooks**: `use[FeatureName]` (e.g., `useFadeIn`, `use3DScene`)
+- **Components**: `PascalCase` (e.g., `AnimatedPresence`)
+- **Types**: `PascalCase` with descriptive suffixes (e.g., `FadeInOptions`, `ParticleConfig`)
+- **Files**: `camelCase.ts` or `PascalCase.tsx` for components
 
-### Before You Start
-
-1. **Check existing issues** to avoid duplicate work
-2. **Open an issue** to discuss major changes
-3. **Follow coding standards** outlined below
-
-### Coding Standards
-
-#### TypeScript
-- Use TypeScript for all new code
-- Provide proper type definitions
-- Export types for public APIs
+### TypeScript Guidelines
 
 ```typescript
-// Good
+// ✅ Good - Proper typing
 interface FadeInOptions {
   duration?: number;
   delay?: number;
   trigger?: 'onMount' | 'onScroll';
+  threshold?: number;
 }
 
-export const useFadeIn = (options?: FadeInOptions) => {
-  // implementation
-};
+export function useFadeIn(options: FadeInOptions = {}) {
+  // Implementation
+}
+
+// ❌ Avoid - Any types
+function useFadeIn(options: any) {
+  // Don't do this
+}
 ```
 
-#### React Hooks
-- Follow React hooks rules
-- Use proper dependency arrays
-- Clean up side effects
+### Hook Development Pattern
 
 ```typescript
-// Good
-export const useFadeIn = (options: FadeInOptions = {}) => {
+import { useRef, useEffect, useCallback } from 'react';
+import { gsap } from 'gsap';
+
+interface UseCustomAnimationOptions {
+  duration?: number;
+  ease?: string;
+  // ... other options
+}
+
+export function useCustomAnimation(options: UseCustomAnimationOptions = {}) {
   const ref = useRef<HTMLElement>(null);
+  const timelineRef = useRef<gsap.core.Timeline>();
   
-  useEffect(() => {
+  const {
+    duration = 1,
+    ease = 'power2.out',
+    ...otherOptions
+  } = options;
+
+  const animate = useCallback(() => {
     if (!ref.current) return;
     
-    const animation = gsap.from(ref.current, {
-      opacity: 0,
-      duration: options.duration || 1,
-    });
+    timelineRef.current = gsap.timeline();
+    // Animation logic here
     
-    return () => animation.kill(); // Cleanup
-  }, [options.duration]);
-  
-  return ref;
-};
+  }, [duration, ease]);
+
+  useEffect(() => {
+    animate();
+    
+    // Cleanup
+    return () => {
+      timelineRef.current?.kill();
+    };
+  }, [animate]);
+
+  return { ref, animate };
+}
 ```
 
-#### Naming Conventions
-- Use camelCase for variables and functions
-- Use PascalCase for components and interfaces
-- Use descriptive names
-
-```typescript
-// Good
-const useFadeIn = () => {};
-const AnimatedPresence = () => {};
-interface SlideInOptions {}
-
-// Avoid
-const fade = () => {};
-const component = () => {};
-interface opts {}
-```
-
-#### Documentation Comments
-- Add JSDoc comments for all public APIs
-- Include examples in documentation
-
-```typescript
-/**
- * Hook for fade-in animations
- * @param options - Animation configuration options
- * @param options.duration - Animation duration in seconds (default: 1)
- * @param options.delay - Delay before animation starts (default: 0)
- * @returns Ref to attach to the element you want to animate
- * 
- * @example
- * ```jsx
- * const fadeRef = useFadeIn({ duration: 2 });
- * return <div ref={fadeRef}>Content</div>;
- * ```
- */
-export const useFadeIn = (options?: FadeInOptions) => {
-  // implementation
-};
-```
-
-## Pull Request Process
-
-### 1. Create a Branch
-```bash
-git checkout -b feature/your-feature-name
-# or
-git checkout -b fix/issue-number
-```
-
-### 2. Make Your Changes
-- Write clean, readable code
-- Follow existing patterns
-- Add tests for new features
-- Update documentation
-
-### 3. Test Your Changes
-```bash
-npm run test           # Run all tests
-npm run test:unit     # Unit tests only
-npm run test:e2e      # E2E tests
-npm run lint          # Check code style
-npm run build         # Ensure it builds
-```
-
-### 4. Commit Your Changes
-Use conventional commit messages:
-
-```bash
-git commit -m "feat: add useParallax hook"
-git commit -m "fix: resolve memory leak in useFadeIn"
-git commit -m "docs: update API documentation"
-```
-
-Commit types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `test`: Tests
-- `refactor`: Code refactoring
-- `style`: Code style changes
-- `chore`: Build process or auxiliary tool changes
-
-### 5. Push and Create PR
-```bash
-git push origin your-branch-name
-```
-
-Then create a Pull Request on GitHub with:
-- Clear title and description
-- Reference any related issues
-- Include screenshots/GIFs for UI changes
-- List breaking changes (if any)
-
-### Pull Request Template
-```markdown
-## Description
-Brief description of changes
-
-## Type of Change
-- [ ] Bug fix
-- [ ] New feature
-- [ ] Documentation update
-- [ ] Performance improvement
-
-## Testing
-- [ ] Tests pass locally
-- [ ] Added tests for new features
-- [ ] Manual testing completed
-
-## Screenshots/GIFs
-(if applicable)
-
-## Breaking Changes
-(if applicable)
-
-## Related Issues
-Fixes #123
-```
-
-## Testing
+## 🧪 Testing
 
 ### Running Tests
+
 ```bash
-npm run test              # All tests
-npm run test:watch        # Watch mode
-npm run test:coverage     # With coverage report
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run specific test file
+npm test -- hooks/core/useFadeIn.test.ts
+
+# Run tests with coverage
+npm run test:coverage
 ```
 
 ### Writing Tests
-- Use Jest and React Testing Library
-- Test public APIs and edge cases
-- Mock GSAP when necessary
+
+We use Vitest and React Testing Library for testing.
 
 ```typescript
-// Example test
-import { renderHook } from '@testing-library/react';
-import { useFadeIn } from '../hooks/useFadeIn';
+import { renderHook, act } from '@testing-library/react';
+import { useFadeIn } from '../useFadeIn';
 
 describe('useFadeIn', () => {
-  it('should return a ref', () => {
+  it('should provide a ref', () => {
     const { result } = renderHook(() => useFadeIn());
-    expect(result.current).toBeDefined();
+    expect(result.current.ref).toBeDefined();
   });
-  
-  it('should handle custom duration', () => {
-    const { result } = renderHook(() => useFadeIn({ duration: 2 }));
-    // Add assertions
+
+  it('should accept custom duration', () => {
+    const { result } = renderHook(() => 
+      useFadeIn({ duration: 2 })
+    );
+    // Test implementation
+  });
+
+  it('should handle cleanup on unmount', () => {
+    const { unmount } = renderHook(() => useFadeIn());
+    act(() => {
+      unmount();
+    });
+    // Verify cleanup
   });
 });
 ```
 
-## Documentation
+### Performance Testing
 
-### API Documentation
-- Document all public APIs
-- Include usage examples
-- Explain parameters and return values
+```bash
+# Run performance benchmarks
+npm run test:perf
 
-### Examples
-- Create practical, real-world examples
-- Test all examples to ensure they work
-- Include CodeSandbox links when possible
+# Test bundle size
+npm run test:size
 
-### README Updates
-- Update README.md for new features
-- Keep examples current
-- Update feature lists
+# Memory leak detection
+npm run test:memory
+```
 
-## Release Process
+## 🎯 Contributing Different Types of Features
 
-### Versioning
-We follow [Semantic Versioning](https://semver.org/):
-- **PATCH** (1.0.1): Bug fixes
-- **MINOR** (1.1.0): New features (backward compatible)
-- **MAJOR** (2.0.0): Breaking changes
+### 🎨 Adding New Animation Hooks
 
-### Release Notes
-- Document all changes
-- Include migration guides for breaking changes
-- Highlight new features
+1. **Create hook file**: `src/hooks/[category]/use[FeatureName].ts`
+2. **Follow the hook pattern** shown above
+3. **Add TypeScript definitions**
+4. **Write comprehensive tests**
+5. **Add to main exports**: Update `src/index.ts`
+6. **Document usage**: Add examples and API docs
 
-## Getting Help
+Example PR checklist for new hooks:
+- [ ] Hook implementation with proper TypeScript
+- [ ] Unit tests with good coverage
+- [ ] Integration with existing animation system
+- [ ] Performance optimizations
+- [ ] Accessibility considerations
+- [ ] Documentation and examples
 
-### Communication Channels
-- **GitHub Issues**: Bug reports and feature requests
-- **GitHub Discussions**: General questions and ideas
-- **Discord**: Real-time chat (link in README)
+### 🎮 Adding 3D Features
 
-### Questions?
-- Check existing issues and discussions
-- Search documentation
-- Ask in our Discord community
-- Open a new issue with the "question" label
+3D features require special considerations:
 
-## Recognition
+```typescript
+// Example 3D hook structure
+export function use3DCustomEffect(options: CustomEffectOptions = {}) {
+  const sceneRef = useRef<THREE.Scene>();
+  const rendererRef = useRef<THREE.WebGLRenderer>();
+  
+  // Proper cleanup for 3D resources
+  useEffect(() => {
+    return () => {
+      // Dispose geometries, materials, textures
+      if (sceneRef.current) {
+        sceneRef.current.traverse((object) => {
+          if (object instanceof THREE.Mesh) {
+            object.geometry.dispose();
+            if (Array.isArray(object.material)) {
+              object.material.forEach(material => material.dispose());
+            } else {
+              object.material.dispose();
+            }
+          }
+        });
+      }
+    };
+  }, []);
+  
+  return { sceneRef };
+}
+```
 
-Contributors will be:
-- Added to the contributors list
-- Mentioned in release notes
-- Invited to join the core team (for significant contributions)
+### ⚡ Adding Physics Features
 
-## Development Tips
+Physics features should integrate cleanly with GSAP:
 
-### Performance
-- Always clean up GSAP animations
-- Use `useCallback` and `useMemo` appropriately
-- Test performance with many animated elements
+```typescript
+export function usePhysicsCustom(options: PhysicsOptions = {}) {
+  const worldRef = useRef<Matter.World>();
+  const engineRef = useRef<Matter.Engine>();
+  
+  // Sync Matter.js with GSAP
+  const syncWithGSAP = useCallback((body: Matter.Body, target: gsap.TweenTarget) => {
+    gsap.set(target, {
+      x: body.position.x,
+      y: body.position.y,
+      rotation: body.angle
+    });
+  }, []);
+  
+  return { worldRef, syncWithGSAP };
+}
+```
 
-### Accessibility
-- Respect `prefers-reduced-motion`
-- Ensure animations don't cause seizures
-- Test with screen readers
+### 🎵 Adding Audio Features
 
-### Browser Compatibility
-- Test in multiple browsers
-- Use feature detection when needed
-- Document browser support
+Audio features need proper Web Audio API integration:
 
-## Thank You!
+```typescript
+export function useAudioCustom(options: AudioOptions = {}) {
+  const audioContextRef = useRef<AudioContext>();
+  const analyserRef = useRef<AnalyserNode>();
+  
+  useEffect(() => {
+    // Proper audio context handling
+    const initAudio = async () => {
+      if (!audioContextRef.current) {
+        audioContextRef.current = new AudioContext();
+      }
+      
+      if (audioContextRef.current.state === 'suspended') {
+        await audioContextRef.current.resume();
+      }
+    };
+    
+    initAudio();
+    
+    return () => {
+      audioContextRef.current?.close();
+    };
+  }, []);
+  
+  return { audioContextRef };
+}
+```
 
-Every contribution, no matter how small, helps make ESAP better for everyone. We appreciate your time and effort in improving this project!
+## 📚 Documentation
+
+### Writing Documentation
+
+- **Clear examples** for each feature
+- **TypeScript signatures** for all public APIs
+- **Use cases** and when to use each hook
+- **Performance considerations**
+- **Accessibility notes**
+
+### Documentation Structure
+
+```markdown
+# useFeatureName
+
+Brief description of what this hook does.
+
+## Usage
+
+\```jsx
+import { useFeatureName } from 'esap';
+
+function MyComponent() {
+  const { ref } = useFeatureName({
+    duration: 1,
+    ease: 'power2.out'
+  });
+  
+  return <div ref={ref}>Animated content</div>;
+}
+\```
+
+## API
+
+### Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| duration | number | 1 | Animation duration |
+| ease | string | 'power2.out' | Easing function |
+
+### Returns
+
+| Property | Type | Description |
+|----------|------|-------------|
+| ref | RefObject | Element reference |
+```
+
+## 🚦 Pull Request Process
+
+### Before Submitting
+
+1. **Create an issue** first (unless it's a small fix)
+2. **Fork the repository**
+3. **Create a feature branch**: `git checkout -b feature/amazing-feature`
+4. **Make your changes**
+5. **Add tests** for new functionality
+6. **Update documentation**
+7. **Ensure all tests pass**: `npm test`
+8. **Check bundle size impact**: `npm run size-check`
+
+### PR Requirements
+
+- [ ] **Descriptive title** and detailed description
+- [ ] **Tests included** and passing
+- [ ] **Documentation updated**
+- [ ] **No breaking changes** (unless major version)
+- [ ] **Performance impact** considered
+- [ ] **Accessibility** requirements met
+- [ ] **TypeScript types** are complete
+- [ ] **Bundle size** impact is reasonable
+
+### PR Template
+
+```markdown
+## Description
+Brief description of changes and motivation.
+
+## Type of Change
+- [ ] Bug fix (non-breaking change)
+- [ ] New feature (non-breaking change)
+- [ ] Breaking change (fix or feature causing existing functionality to break)
+- [ ] Documentation update
+
+## Testing
+- [ ] Unit tests added/updated
+- [ ] Integration tests pass
+- [ ] Manual testing completed
+
+## Checklist
+- [ ] Code follows project style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated
+- [ ] No console warnings/errors
+```
+
+## 🐛 Bug Reports
+
+### Before Reporting
+
+1. **Search existing issues**
+2. **Try latest version**
+3. **Create minimal reproduction**
+
+### Bug Report Template
+
+```markdown
+## Bug Description
+Clear description of the bug.
+
+## To Reproduce
+1. Step 1
+2. Step 2
+3. See error
+
+## Expected Behavior
+What should happen.
+
+## Environment
+- ESAP version: 
+- React version:
+- Browser:
+- OS:
+
+## Code Example
+\```jsx
+// Minimal reproduction code
+\```
+```
+
+## 💡 Feature Requests
+
+### Feature Request Template
+
+```markdown
+## Feature Description
+Clear description of the proposed feature.
+
+## Use Case
+Why is this feature needed? What problem does it solve?
+
+## Proposed API
+\```jsx
+// How you envision using this feature
+const { ref } = useNewFeature({
+  // options
+});
+\```
+
+## Alternatives Considered
+Any alternative solutions you've considered.
+```
+
+## 🏗️ Architecture Decisions
+
+### Core Principles
+
+1. **Zero Configuration** - Should work out of the box
+2. **Performance First** - Optimize for 60fps animations
+3. **Accessibility** - Respect user preferences
+4. **TypeScript** - Full type safety
+5. **Tree Shakeable** - Only bundle what's used
+6. **React Patterns** - Follow React best practices
+
+### Adding Dependencies
+
+New dependencies must be justified:
+- **Bundle size impact** < 5KB for core features
+- **Performance benefits** or essential functionality
+- **Maintenance status** - actively maintained
+- **License compatibility** - MIT compatible
+
+### Breaking Changes
+
+Breaking changes require:
+- **Major version bump**
+- **Migration guide**
+- **Deprecation warnings** (when possible)
+- **Community discussion**
+
+## 🏆 Recognition
+
+Contributors are recognized in:
+- **README.md** contributors section
+- **CHANGELOG.md** release notes
+- **GitHub releases**
+- **Social media** shoutouts
+
+### Types of Recognition
+
+- 🐛 **Bug Hunter** - Found and reported bugs
+- 💻 **Code Contributor** - Submitted code changes
+- 📚 **Documentation** - Improved docs and examples
+- 🎨 **Design** - UI/UX improvements
+- 🧪 **Testing** - Added tests and QA
+- 🌟 **Feature Champion** - Implemented major features
+
+## 📞 Getting Help
+
+- **GitHub Discussions** - General questions and ideas
+- **GitHub Issues** - Bug reports and feature requests
+- **Discord** - Real-time community chat
+- **Stack Overflow** - Tag questions with `esap`
+
+## 📄 License
+
+By contributing to ESAP, you agree that your contributions will be licensed under the MIT License.
 
 ---
 
-**Happy coding!** 🚀
+## 🚀 Ready to Contribute?
 
-For questions about this guide, please open an issue or reach out on Discord.
+1. **Star the repository** ⭐
+2. **Join our Discord** 💬
+3. **Check open issues** 🎯
+4. **Read the codebase** 📖
+5. **Make your first contribution** 🎉
+
+Thank you for helping make ESAP better for everyone! 🙏
+
+---
+
+**Happy coding and animating!** 🚀✨
