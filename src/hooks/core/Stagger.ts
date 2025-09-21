@@ -1,9 +1,9 @@
 import { gsap } from 'gsap';
-import { EnhancedAnimationEngine } from '../../core/AnimationEngine'; // Updated import
+import { AdvancedAnimationEngine } from '../../core/AnimationEngine'; // Updated import
 import type { StaggerOptions, AnimationInstance } from '../../types/core';
 
 export class Stagger {
-  private engine: EnhancedAnimationEngine; 
+  private engine: AdvancedAnimationEngine; 
   private container: HTMLElement;
   private elements: HTMLElement[];
   private timeline: gsap.core.Timeline;
@@ -16,7 +16,7 @@ export class Stagger {
     selector: string, 
     options: StaggerOptions = {}
   ) {
-    this.engine = EnhancedAnimationEngine.getInstance(); // Fixed instance access
+    this.engine = AdvancedAnimationEngine.getInstance(); // Fixed instance access
     this.container = container;
     this.elements = Array.from(container.querySelectorAll(selector));
     this.options = {

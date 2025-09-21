@@ -1,20 +1,56 @@
 {
   "name": "esap",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A powerful, modern animation library for JavaScript and TypeScript, built on top of GSAP and Three.js.",
+  "author": {
+    "name": "Balasanthosh",
+    "url": "https://github.com/BALASANTHOSH01"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/BALASANTHOSH01/esap#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BALASANTHOSH01/esap.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BALASANTHOSH01/esap/issues"
+  },
   "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint . --ext .ts,.js",
+    "test": "echo \"No tests specified\" && exit 0"
   },
+  "keywords": [
+    "animation",
+    "gsap",
+    "threejs",
+    "typescript",
+    "javascript",
+    "library",
+    "web",
+    "motion",
+    "visual",
+    "effects"
+  ],
   "devDependencies": {
     "@types/node": "^24.5.2",
+    "@types/three": "^0.180.0",
     "typescript": "~5.8.3",
     "vite": "^7.1.6",
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "three": "^0.180.0"
   }
 }

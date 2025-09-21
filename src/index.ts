@@ -1,8 +1,8 @@
-import { EnhancedAnimationEngine } from './core/AnimationEngine';
+import AdvancedAnimationEngine from './core/AnimationEngine';
 import { AnimationManager } from './core/AnimationManager';
 
 // Core exports
-export { AnimationEngine } from './core/AnimationEngine';
+export { AdvancedAnimationEngine } from './core/AnimationEngine';
 export { AnimationManager } from './core/AnimationManager';
 export { BaseAnimation } from './core/BaseAnimation';
 
@@ -33,7 +33,7 @@ export type {
   ScrollTriggerInstance
 } from './types/core';
 
-// Convenience API
+// ESAP class with corrected references
 export class ESAP {
   private manager: AnimationManager;
 
@@ -112,17 +112,17 @@ export class ESAP {
 
   // Utility methods
   setGlobalDuration(duration: number): this {
-    EnhancedAnimationEngine.getInstance().setGlobalDuration(duration);
+    AdvancedAnimationEngine.getInstance().setGlobalDuration(duration); // Fixed
     return this;
   }
 
   setGlobalEase(ease: string): this {
-    EnhancedAnimationEngine.getInstance().setGlobalEase(ease);
+    AdvancedAnimationEngine.getInstance().setGlobalEase(ease); // Fixed
     return this;
   }
 
   enableDebug(enable: boolean = true): this {
-    EnhancedAnimationEngine.getInstance().enableDebugMode(enable);
+    AdvancedAnimationEngine.getInstance().enableDebugMode(enable); // Fixed
     return this;
   }
 

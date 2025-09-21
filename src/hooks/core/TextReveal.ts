@@ -1,35 +1,35 @@
-import { gsap } from 'gsap';
-import { BaseAnimation } from '../../core/BaseAnimation';
-import type { TextRevealOptions } from '../../types/core';
+import { gsap } from "gsap";
+import { BaseAnimation } from "../../core/BaseAnimation";
+import type { TextRevealOptions } from "../../types/core";
 
 // Advanced text splitting with better handling
 class AdvancedTextSplitter {
-  private static readonly SPACE_CHAR = '\u00A0'; // Non-breaking space
+  private static readonly SPACE_CHAR = "\u00A0"; // Non-breaking space
   private static readonly LINE_HEIGHT_MULTIPLIER = 1.2;
 
   static splitByChars(text: string, preserveSpaces: boolean = true): string[] {
-    return text.split('').map(char => {
-      if (char === ' ') {
+    return text.split("").map((char) => {
+      if (char === " ") {
         return preserveSpaces ? this.SPACE_CHAR : char;
       }
-      return char === '\n' ? '<br>' : char;
+      return char === "\n" ? "<br>" : char;
     });
   }
 
   static splitByWords(text: string): string[] {
     return text
       .split(/(\s+)/)
-      .filter(word => word.length > 0)
-      .map(word => word.trim() || ' ');
+      .filter((word) => word.length > 0)
+      .map((word) => word.trim() || " ");
   }
 
   static splitByLines(element: HTMLElement): string[] {
     // More accurate line splitting based on actual rendered lines
-    const text = element.textContent || '';
-    const words = text.split(/\s+/).filter(word => word.length > 0);
-    
+    const text = element.textContent || "";
+    const words = text.split(/\s+/).filter((word) => word.length > 0);
+
     // Create temporary spans to measure line breaks
-    const tempContainer = document.createElement('div');
+    const tempContainer = document.createElement("div");
     tempContainer.style.cssText = `
       position: absolute;
       visibility: hidden;
@@ -41,13 +41,13 @@ class AdvancedTextSplitter {
     document.body.appendChild(tempContainer);
 
     const lines: string[] = [];
-    let currentLine = '';
+    let currentLine = "";
     const maxWidth = element.offsetWidth;
 
-    words.forEach(word => {
+    words.forEach((word) => {
       const testLine = currentLine ? `${currentLine} ${word}` : word;
       tempContainer.textContent = testLine;
-      
+
       if (tempContainer.offsetWidth > maxWidth && currentLine) {
         lines.push(currentLine.trim());
         currentLine = word;
@@ -61,25 +61,31 @@ class AdvancedTextSplitter {
     }
 
     document.body.removeChild(tempContainer);
-    return lines.filter(line => line.length > 0);
+    return lines.filter((line) => line.length > 0);
   }
 
   static splitBySentences(text: string): string[] {
     return text
       .split(/[.!?]+/)
-      .map(sentence => sentence.trim())
-      .filter(sentence => sentence.length > 0);
+      .map((sentence) => sentence.trim())
+      .filter((sentence) => sentence.length > 0);
   }
 }
 
 export class TextReveal extends BaseAnimation {
   private textOptions: TextRevealOptions & {
-    type: 'chars' | 'words' | 'lines' | 'sentences';
+    type: "chars" | "words" | "lines" | "sentences";
     preserveSpaces: boolean;
     duration: number;
     delay: number;
     ease: string;
-    trigger: 'immediate' | 'scroll' | 'click' | 'hover';
+    trigger:
+      | "immediate"
+      | "scroll"
+      | "click"
+      | "hover"
+      | "proximity"
+      | "deviceOrientation";
     threshold: number;
     once: boolean;
     repeat: number;
@@ -93,14 +99,14 @@ export class TextReveal extends BaseAnimation {
 
   constructor(element: HTMLElement, options: TextRevealOptions = {}) {
     super(element, options);
-    
+
     this.textOptions = {
-      type: options.type ?? 'chars',
+      type: options.type ?? "chars",
       preserveSpaces: options.preserveSpaces ?? true,
       duration: Math.max(0.1, options.duration ?? 1),
       delay: Math.max(0, options.delay ?? 0),
-      ease: this.validateEase(options.ease) ?? 'power2.out',
-      trigger: options.trigger ?? 'immediate',
+      ease: this.validateEase(options.ease) ?? "power2.out",
+      trigger: options.trigger ?? "immediate",
       threshold: Math.max(0, Math.min(1, options.threshold ?? 0.1)),
       once: options.once ?? true,
       repeat: Math.max(-1, options.repeat ?? 0),
@@ -109,99 +115,117 @@ export class TextReveal extends BaseAnimation {
       onComplete: options.onComplete,
       onStart: options.onStart,
       onUpdate: options.onUpdate,
-      rootMargin: options.rootMargin
+      rootMargin: options.rootMargin,
     };
 
-    this.originalText = this.element.textContent || '';
+    this.originalText = this.element.textContent || "";
     this.originalHTML = this.element.innerHTML;
-    
+
     if (!this.originalText.trim()) {
-      console.warn('TextReveal: Element has no text content');
+      console.warn("TextReveal: Element has no text content");
       return;
     }
   }
 
   private validateEase(ease?: string): string | undefined {
     if (!ease) return undefined;
-    
+
     const validEases = [
-      'none', 'power1', 'power2', 'power3', 'power4',
-      'back', 'elastic', 'bounce', 'circ', 'expo', 'sine'
+      "none",
+      "power1",
+      "power2",
+      "power3",
+      "power4",
+      "back",
+      "elastic",
+      "bounce",
+      "circ",
+      "expo",
+      "sine",
     ];
-    
-    const easeTypes = ['.in', '.out', '.inOut'];
-    const isValidEase = validEases.some(validEase => 
-      ease.startsWith(validEase) || 
-      easeTypes.some(type => ease === validEase + type)
+
+    const easeTypes = [".in", ".out", ".inOut"];
+    const isValidEase = validEases.some(
+      (validEase) =>
+        ease.startsWith(validEase) ||
+        easeTypes.some((type) => ease === validEase + type)
     );
-    
+
     return isValidEase ? ease : undefined;
   }
 
   protected createAnimation(): void {
     if (!this.originalText.trim()) return;
-    
+
     try {
       this.splitText();
       this.animateSplitText();
     } catch (error) {
-      console.error('Failed to create text reveal animation:', error);
+      console.error("Failed to create text reveal animation:", error);
       this.restoreOriginalText();
     }
   }
 
   private splitText(): void {
     const { type, preserveSpaces } = this.textOptions;
-    
+
     // Create container to maintain layout
-    this.containerElement = document.createElement('div');
-    this.containerElement.style.cssText = 'display: inline;';
-    
-    this.element.innerHTML = '';
+    this.containerElement = document.createElement("div");
+    this.containerElement.style.cssText = "display: inline;";
+
+    this.element.innerHTML = "";
     this.element.appendChild(this.containerElement);
     this.splitElements = [];
-    
+
     try {
       switch (type) {
-        case 'chars':
-          this.createCharElements(AdvancedTextSplitter.splitByChars(this.originalText, preserveSpaces));
+        case "chars":
+          this.createCharElements(
+            AdvancedTextSplitter.splitByChars(this.originalText, preserveSpaces)
+          );
           break;
-        case 'words':
-          this.createWordElements(AdvancedTextSplitter.splitByWords(this.originalText));
+        case "words":
+          this.createWordElements(
+            AdvancedTextSplitter.splitByWords(this.originalText)
+          );
           break;
-        case 'lines':
-          this.createLineElements(AdvancedTextSplitter.splitByLines(this.element));
+        case "lines":
+          this.createLineElements(
+            AdvancedTextSplitter.splitByLines(this.element)
+          );
           break;
-        case 'sentences':
-          this.createSentenceElements(AdvancedTextSplitter.splitBySentences(this.originalText));
+        case "sentences":
+          this.createSentenceElements(
+            AdvancedTextSplitter.splitBySentences(this.originalText)
+          );
           break;
         default:
           throw new Error(`Invalid type: ${type}`);
       }
     } catch (error) {
-      console.error('Text splitting failed:', error);
+      console.error("Text splitting failed:", error);
       throw error;
     }
   }
 
   private createCharElements(chars: string[]): void {
     chars.forEach((char, index) => {
-      const span = document.createElement('span');
-      span.innerHTML = char === '<br>' ? '<br>' : char;
+      const span = document.createElement("span");
+      span.innerHTML = char === "<br>" ? "<br>" : char;
       span.style.cssText = `
         display: inline-block;
         opacity: 0;
         transform: translateY(20px);
         transition-property: opacity, transform;
       `;
-      
+
       // Handle special characters
-      if (char === '<br>') {
-        span.style.display = 'block';
-        span.style.width = '100%';
-        span.style.height = '0';
+      if (char === "<br>") {
+        span.style.display = "block";
+        span.style.width = "100%";
+        span.style.height = "0";
       }
-      
+
       this.containerElement!.appendChild(span);
       this.splitElements.push(span);
     });
@@ -210,7 +234,7 @@ export class TextReveal extends BaseAnimation {
   private createWordElements(words: string[]): void {
     words.forEach((word, index) => {
       if (word.trim()) {
-        const span = document.createElement('span');
+        const span = document.createElement("span");
         span.textContent = word.trim();
         span.style.cssText = `
           display: inline-block;
@@ -223,14 +247,14 @@ export class TextReveal extends BaseAnimation {
         this.splitElements.push(span);
       } else {
         // Handle spaces
-        this.containerElement!.appendChild(document.createTextNode(' '));
+        this.containerElement!.appendChild(document.createTextNode(" "));
       }
     });
   }
 
   private createLineElements(lines: string[]): void {
-    lines.forEach(line => {
-      const div = document.createElement('div');
+    lines.forEach((line) => {
+      const div = document.createElement("div");
       div.textContent = line;
       div.style.cssText = `
         opacity: 0;
@@ -244,7 +268,7 @@ export class TextReveal extends BaseAnimation {
 
   private createSentenceElements(sentences: string[]): void {
     sentences.forEach((sentence, index) => {
-      const span = document.createElement('span');
+      const span = document.createElement("span");
       span.textContent = sentence;
       span.style.cssText = `
         display: inline;
@@ -254,10 +278,10 @@ export class TextReveal extends BaseAnimation {
       `;
       this.containerElement!.appendChild(span);
       this.splitElements.push(span);
-      
+
       // Add punctuation and spacing
       if (index < sentences.length - 1) {
-        this.containerElement!.appendChild(document.createTextNode('. '));
+        this.containerElement!.appendChild(document.createTextNode(". "));
       }
     });
   }
@@ -265,8 +289,11 @@ export class TextReveal extends BaseAnimation {
   private animateSplitText(): void {
     if (this.splitElements.length === 0) return;
 
-    const stagger = Math.min(0.1, this.textOptions.duration / this.splitElements.length);
-    
+    const stagger = Math.min(
+      0.1,
+      this.textOptions.duration / this.splitElements.length
+    );
+
     this.timeline.to(this.splitElements, {
       opacity: 1,
       y: 0,
@@ -274,7 +301,7 @@ export class TextReveal extends BaseAnimation {
       ease: this.textOptions.ease,
       stagger: {
         amount: stagger * this.splitElements.length,
-        from: 'start'
+        from: "start",
       },
       onStart: () => {
         this.isRevealed = false;
@@ -287,7 +314,7 @@ export class TextReveal extends BaseAnimation {
       onUpdate: () => {
         const progress = this.timeline.progress();
         this.textOptions.onUpdate?.(progress);
-      }
+      },
     });
   }
 
@@ -299,8 +326,8 @@ export class TextReveal extends BaseAnimation {
           opacity: 1,
           y: 0,
           duration,
-          ease: 'power2.out',
-          onComplete: resolve
+          ease: "power2.out",
+          onComplete: resolve,
         });
       } else {
         resolve();
@@ -315,8 +342,8 @@ export class TextReveal extends BaseAnimation {
           opacity: 0,
           y: 20,
           duration,
-          ease: 'power2.out',
-          onComplete: resolve
+          ease: "power2.out",
+          onComplete: resolve,
         });
       } else {
         resolve();
@@ -336,7 +363,7 @@ export class TextReveal extends BaseAnimation {
         onComplete: () => {
           this.isRevealed = true;
           resolve();
-        }
+        },
       });
     });
   }
@@ -348,22 +375,22 @@ export class TextReveal extends BaseAnimation {
         y: 20,
         duration,
         stagger: 0.02,
-        ease: 'power2.out',
+        ease: "power2.out",
         onComplete: () => {
           this.isRevealed = false;
           resolve();
-        }
+        },
       });
     });
   }
 
   // Wave reveal effect
-  revealWave(direction: 'left' | 'right' | 'center' = 'left'): Promise<void> {
+  revealWave(direction: "left" | "right" | "center" = "left"): Promise<void> {
     return new Promise((resolve) => {
       const stagger = {
         amount: this.textOptions.duration,
         from: direction as any,
-        ease: 'power2.out'
+        ease: "power2.out",
       };
 
       gsap.to(this.splitElements, {
@@ -376,7 +403,7 @@ export class TextReveal extends BaseAnimation {
         onComplete: () => {
           this.isRevealed = true;
           resolve();
-        }
+        },
       });
     });
   }
@@ -391,7 +418,7 @@ export class TextReveal extends BaseAnimation {
             opacity: 1,
             y: 0,
             duration: 0.1,
-            ease: 'none'
+            ease: "none",
           });
           index++;
         } else {
@@ -412,13 +439,16 @@ export class TextReveal extends BaseAnimation {
           y: 0,
           duration: 0.1,
           delay: index * 0.02,
-          ease: 'none',
+          ease: "none",
           repeat: 2,
           yoyo: true,
-          onComplete: index === this.splitElements.length - 1 ? () => {
-            this.isRevealed = true;
-            resolve();
-          } : undefined
+          onComplete:
+            index === this.splitElements.length - 1
+              ? () => {
+                  this.isRevealed = true;
+                  resolve();
+                }
+              : undefined,
         });
       });
     });
@@ -455,7 +485,7 @@ export class TextReveal extends BaseAnimation {
       this.containerElement = null;
       this.isRevealed = false;
     } catch (error) {
-      console.error('Error during TextReveal destroy:', error);
+      console.error("Error during TextReveal destroy:", error);
     }
   }
 }
@@ -466,23 +496,23 @@ export function createTextReveal(
   options: TextRevealOptions = {}
 ): TextReveal {
   try {
-    const el = typeof element === 'string' ? 
-      document.querySelector(element) as HTMLElement : 
-      element;
-      
+    const el =
+      typeof element === "string"
+        ? (document.querySelector(element) as HTMLElement)
+        : element;
+
     if (!el) {
       throw new Error(`Element not found: ${element}`);
     }
-    
-    const textContent = el.textContent || '';
+
+    const textContent = el.textContent || "";
     if (!textContent.trim()) {
-      console.warn('TextReveal: Element has no text content');
+      console.warn("TextReveal: Element has no text content");
     }
-    
+
     return new TextReveal(el, options);
-    
   } catch (error) {
-    console.error('Failed to create TextReveal:', error);
+    console.error("Failed to create TextReveal:", error);
     throw error;
   }
 }
@@ -493,46 +523,49 @@ export function createTextRevealBatch(
   options: TextRevealOptions = {}
 ): TextReveal[] {
   const reveals: TextReveal[] = [];
-  
+
   elements.forEach((element, index) => {
     try {
       const reveal = createTextReveal(element, {
         ...options,
-        delay: (options.delay || 0) + (index * 0.1)
+        delay: (options.delay || 0) + index * 0.1,
       });
       reveals.push(reveal);
     } catch (error) {
-      console.warn(`Failed to create TextReveal for element at index ${index}:`, error);
+      console.warn(
+        `Failed to create TextReveal for element at index ${index}:`,
+        error
+      );
     }
   });
-  
+
   return reveals;
 }
 
 // Presets for common text reveal patterns
 export const TextRevealPresets = {
   fadeInUp: (duration = 1): TextRevealOptions => ({
-    type: 'words',
+    type: "words",
     duration,
-    ease: 'power2.out',
-    trigger: 'scroll'
+    ease: "power2.out",
+    trigger: "scroll",
   }),
-  
+
   typewriter: (speed = 50): TextRevealOptions => ({
-    type: 'chars',
+    type: "chars",
     duration: 0.1,
-    ease: 'none',
+    ease: "none",
   }),
-  
+
   wave: (duration = 1.5): TextRevealOptions => ({
-    type: 'chars',
+    type: "chars",
     duration,
-    ease: 'back.out(1.7)'
+    ease: "back.out(1.7)",
   }),
-  
+
   glitch: (): TextRevealOptions => ({
-    type: 'chars',
+    type: "chars",
     duration: 0.1,
-    ease: 'none'
-  })
+    ease: "none",
+  }),
 };
