@@ -18,6 +18,8 @@ PLANE.txt
 out
 build
 
+dev/*.ts
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

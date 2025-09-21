@@ -15,10 +15,10 @@ import type {
 import { FadeIn } from "../hooks/core/FadeIn";
 import { SlideIn } from "../hooks/core/SlideIn";
 import { Stagger } from "../hooks/core/Stagger";
-import { Parallax } from "../hooks/core/Parallax";
+import { Parallax } from "../../dev/Parallax";
 import { TextReveal } from "../hooks/core/TextReveal";
-import { Morphing } from "../hooks/core/Morphing";
-import { ScrollTriggerAnimation } from "../hooks/core/ScrollTriggerAnimation";
+import { Morphing } from "../../dev/Morphing";
+import { ScrollTriggerAnimation } from "../../dev/ScrollTriggerAnimation";
 
 export interface PerformanceMetrics {
   fps: number;

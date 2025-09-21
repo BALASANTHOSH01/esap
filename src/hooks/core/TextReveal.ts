@@ -120,7 +120,6 @@ class DOMElementFactory {
   static createSplitElements(
     parts: string[], 
     type: TextRevealConfig['type'],
-    preserveSpaces = true
   ): SplitTextResult {
     const fragment = document.createDocumentFragment();
     const elements: HTMLElement[] = [];
@@ -373,8 +372,7 @@ export class TextReveal {
       
       this.splitResult = DOMElementFactory.createSplitElements(
         parts, 
-        this.config.type, 
-        this.config.preserveSpaces
+        this.config.type
       );
 
       // Single DOM write
