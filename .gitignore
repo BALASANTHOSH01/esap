@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+PLANE.txt
+.eslintcache
+.next
+out
+build
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
