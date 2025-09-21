@@ -1,4 +1,4 @@
-import { AdvancedAnimationEngine } from "./AnimationEngine"; // Fixed import
+import { AdvancedAnimationEngine } from "./AnimationEngine"; 
 import type {
   AnimationInstance,
   FadeInOptions,
@@ -102,23 +102,16 @@ export class AnimationManager {
     this.setupAutomaticCleanup();
   }
 
-  private handleAnimationError(
-    id: string,
-    type: string,
-    error: Error,
-    element?: HTMLElement
-  ): void {
+  private handleAnimationError(id: string, type: string, error: Error): void {
     const errorRecord: AnimationError = {
       id,
       type,
       error,
       timestamp: Date.now(),
-      element,
     };
 
     this.errorLog.push(errorRecord);
 
-    // Clean up old errors (keep only last 100)
     if (this.errorLog.length > 100) {
       this.errorLog = this.errorLog.slice(-100);
     }
@@ -223,12 +216,7 @@ export class AnimationManager {
       const id = this.generateId("fadeIn_error");
 
       // Use proper error tracking instead of temporary IDs
-      this.handleAnimationError(
-        id,
-        "fadeIn",
-        errorObj,
-        typeof element === "string" ? undefined : element
-      );
+      this.handleAnimationError(id, "fadeIn", errorObj);
 
       throw errorObj;
     }
@@ -258,12 +246,7 @@ export class AnimationManager {
         error instanceof Error ? error : new Error(String(error));
       const id = this.generateId("slideIn_error");
 
-      this.handleAnimationError(
-        id,
-        "slideIn",
-        errorObj,
-        typeof element === "string" ? undefined : element
-      );
+      this.handleAnimationError(id, "slideIn", errorObj);
 
       throw errorObj;
     }
@@ -703,7 +686,7 @@ export class AnimationManager {
     this.batches.delete(batchId);
 
     const completedIds = batch.animationIds.filter(
-      (index:any) => results[index]
+      (id, index) => results[index]
     );
     this.emit("batchComplete", batchId, completedIds);
 

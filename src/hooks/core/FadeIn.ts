@@ -372,15 +372,13 @@ export class FadeIn extends BaseAnimation {
   }
 
   private optimizeForAnimation(): void {
-    // Layer promotion for GPU acceleration
-    this.element.style.willChange = "transform, opacity";
-    this.element.style.transform = "translateZ(0)";
-    this.element.style.backfaceVisibility = "hidden";
+  this.element.style.willChange = "transform, opacity";
+  this.element.style.transform = "translateZ(0)";
+  this.element.style.backfaceVisibility = "hidden";
 
-    // Reduce repaints
-    this.element.style.isolation = "isolate";
-    this.element.style.contain = "layout style paint"; // Fixed: Changed 'containment' to 'contain'
-  }
+  this.element.style.isolation = "isolate";
+  this.element.style.contain = "layout style"; // FIXED: removed 'paint'
+}
 
   private setupAccessibility(): void {
     const a11y = this.fadeOptions.accessibility!;

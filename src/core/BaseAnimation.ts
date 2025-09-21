@@ -1286,6 +1286,7 @@ export abstract class BaseAnimation {
         try {
           this.physicsEngine.removeBody(this.id);
           this.physicsEngine.clear();
+          this.physicsEngine = undefined;
         } catch (error) {
           console.error("Error cleaning up physics engine:", error);
         }
@@ -1294,6 +1295,7 @@ export abstract class BaseAnimation {
       if (this.threeJS) {
         try {
           this.threeJS.dispose();
+          this.threeJS = undefined;
         } catch (error) {
           console.error("Error disposing Three.js:", error);
         }
@@ -1302,6 +1304,7 @@ export abstract class BaseAnimation {
       if (this.gestureHandler) {
         try {
           this.gestureHandler.destroy();
+          this.gestureHandler = undefined;
         } catch (error) {
           console.error("Error destroying gesture handler:", error);
         }
@@ -1310,6 +1313,7 @@ export abstract class BaseAnimation {
       if (this.motionPath) {
         try {
           this.motionPath.destroy();
+          this.motionPath = undefined;
         } catch (error) {
           console.error("Error destroying motion path:", error);
         }
@@ -1319,9 +1323,6 @@ export abstract class BaseAnimation {
       if (this.options.willChange && this.element.style) {
         this.element.style.willChange = "auto";
       }
-
-      // Call onComplete if specified
-      this.options.onComplete?.();
     } catch (error) {
       console.error("Error during animation destruction:", error);
     }
